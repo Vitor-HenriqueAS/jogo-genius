@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
+	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+	<title>Genius - Jogo</title>
+</head>
+<body class="light-theme">
+
+	<div class="main-game">
+
+		<div class="header">
+			<h1 class="title">Genius</h1>
+			<img src="img/dia-e-noite.png" class="light-dark" alt="Icon light/dark">
+		</div>
+
+		<button type="button" class="btn" id="startGame">Iniciar Jogo</button>
+
+		<h3 class="score disabled">Minha Pontuação: 0</h3>
+
+		<div class="genius disabled">
+			<div class="blue"></div>
+			<div class="yellow"></div>
+			<div class="red"></div>
+			<div class="green"></div>
+		</div>
+
+		<div class="next-level disabled">
+			<h2>Parabéns! Você acertou!</h2>
+
+			<h2>Clique em <br> Estou Preparado<br><br> Se estiver pronto para o próximo nível!</h2>
+
+			<button type="button" class="btn" id="imReady" disabled>Estou Preparado</button>
+		</div>
+
+		<div class="game-over disabled">
+			<h2>Você Perdeu o Jogo! <br><br> Clique em RESTART para iniciar um novo jogo</h2>
+
+			<h2 class="score2">Sua Pontuação foi : ?</h2>
+
+			<button type="button" class="btn" id="restart" disabled>RESTART</button>
+		</div>
+
+		<footer>
+			feito por <a href="https://github.com/Vitor-HenriqueAS" target="_blank">
+			<strong>&copy; Vitor-HenriqueAS 2022</strong></a>
+		</footer>
+	</div>
+
+	<script src="script.js"></script>
+</body>
+</html>
