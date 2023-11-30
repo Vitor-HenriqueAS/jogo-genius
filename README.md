@@ -14,6 +14,8 @@
 
 O jogo Genius tem como objetivo avaliar a memória dos jogadores de maneira interativa, ao acertar a sequência de cores apresentadas. Possui uma pontuação que possibilita a evolução durante o jogo.
 
+[Visualização do Jogo Genius](https://vitor-henriqueas.github.io/jogo-genius/)
+
 ---
 
 ## 🛠 Tecnologias
