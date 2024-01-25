@@ -8,9 +8,10 @@
 	font-family: 'Open Sans', sans-serif;
 }
 
-.light-theme {
+.light_theme {
   --main-game-font-color: #000000;
-	--bg-body: #97eed1;
+	--bg-body: #2F9CE0;
+	--bg-center-body: #cafaea;
 	--bg-btn: #32f132;
 	--bg-btn-hover: #18b918;
 	--border-btn-hover: #8b8b8b;
@@ -23,9 +24,10 @@
 	--icon-theme-transform: scaleX(1);
 }
 
-.dark-theme {
+.dark_theme {
 	--main-game-font-color: #ffffff;
 	--bg-body: #032d3e;
+	--bg-center-body: #010f14;
 	--bg-btn: #9f0c0c;
 	--bg-btn-hover: #5e0404;
 	--border-btn-hover: #000000;
@@ -47,20 +49,34 @@ h1 {
 	text-transform: uppercase;
 }
 
+body {
+	min-height: 100vh;
+	width: 100vw;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	background: var(--bg-body);
+	background: radial-gradient(circle, var(--bg-center-body) 0%, var(--bg-body) 100%);
+}
+
 /* CLASSES GLOBAIS */
 .btn {
-	background-color: var(--bg-btn);
-	color: var(--main-game-font-color);
 	border: 1px solid transparent;
 	padding: 5px;
 	border-radius: 10px;
 	font-size: 1rem;
 	font-weight: 700;
 	transition: 0.3s ease-in-out;
+	text-decoration: none;
+
+	box-shadow: 5px 5px 5px 2px rgba(0,0,0,0.75);
+	-webkit-box-shadow: 5px 5px 5px 2px rgba(0,0,0,0.75);
+	-moz-box-shadow: 5px 5px 5px 2px rgba(0,0,0,0.75);
 }
 
 .btn:hover {
-	background-color: var(--bg-btn-hover);
 	border: 1px solid var(--border-btn-hover);
 	cursor: pointer;
 }
@@ -69,36 +85,70 @@ h1 {
 	display: none;
 }
 
-body {
-	background-color: var(--bg-body);
+.btn_start {
+	background-color: var(--bg-btn);
+	color: var(--main-game-font-color);
+}
+.btn_start:hover {
+	background-color: var(--bg-btn-hover);
+}
+
+.btn_red {
+	color: #fff;
+	background-color: #9f0c0c;
+}
+.btn_red:hover {
+	background-color: #5e0404;
+}
+
+.btn_blue {
+	color: #fff;
+	background-color: #326ef1;
+}
+.btn_blue:hover {
+	background-color: #183bb9;
+}
+
+.btn_green {
+	color: #000;
+	background-color: #32f132;
+}
+.btn_green:hover {
+	background-color: #18b918;
 }
 
 /* MAIN GAME */
-.main-game {
-	min-height: 100vh;
-	width: 100vw;
+main {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 }
 
-.header {
+header {
 	display: flex;
 	align-items: center;
 	gap: 15px;
 	margin-bottom: 10px;
 }
 
-.light-dark {
+.dark_mode {
 	cursor: pointer;
 	transition: 0.3s ease-in-out;
 	transform: var(--icon-theme-transform);
 }
 
-.score {
+.points {
+	text-align: center;
 	margin: 20px 0;
+}
+
+.score {
 	color: var(--main-game-font-color);
+}
+
+.recorde {
+	color: red;
 }
 
 .genius {
@@ -152,9 +202,13 @@ body {
 .selected {
 	opacity: 0.3;
 	transform: scale(0.9);
+
+	box-shadow: 6px 6px 86px 10px rgba(0,0,0,0.75) inset;
+	-webkit-box-shadow: 6px 6px 86px 10px rgba(0,0,0,0.75) inset;
+	-moz-box-shadow: 6px 6px 86px 10px rgba(0,0,0,0.75) inset;
 }
 
-.next-level {
+.popover {
 	background-color: var(--bg-next-level);
 
 	position: absolute;
@@ -166,26 +220,47 @@ body {
 	padding: 10px;
 	width: 300px;
 	height: 350px;
+	border-radius: 10px;
+}
+
+.next-level {
+	box-shadow: 0px 0px 59px 13px #06b82de3;
+	-webkit-box-shadow: 0px 0px 59px 13px#06b82de3;
+	-moz-box-shadow: 0px 0px 59px 13px #06b82de3;
 
 	border: 1px solid var(--border-next-level);
-	border-radius: 10px;
 }
 
 .game-over {
 	background-color: var(--bg-game-over);
 
-	position: absolute;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-	align-items: center;
-
-	padding: 10px;
-	width: 300px;
-	height: 350px;
+	box-shadow: 0px 0px 59px 13px #ff0000e3;
+	-webkit-box-shadow: 0px 0px 59px 13px #ff0000e3;
+	-moz-box-shadow: 0px 0px 59px 13px #ff0000e3;
 
 	border: 1px solid var(--border-game-over);
-	border-radius: 10px;
+}
+
+.win, .defeat, .score2 {
+	font-weight: 900;
+}
+
+.win { color: #32f132; }
+.defeat { color: #9f0c0c; }
+.score2 { 
+	border-width: 3px 0 3px 0;
+	border-style: double;
+	width: 100%;
+}
+
+.popover_btns {
+	width: 100%;
+
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 5px;
 }
 
 .disabled {
@@ -193,6 +268,8 @@ body {
 }
 
 footer {
+	font-size: 12px;
+	padding: 0 80px;
 	margin-top: 50px;
 	color: var(--main-game-font-color);
 }

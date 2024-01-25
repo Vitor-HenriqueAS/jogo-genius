@@ -1,16 +1,11 @@
-let order = [];
-let clickedOrder = [];
-let score = 0;
-
-const blue = document.querySelector('.blue');
-const red = document.querySelector('.red');
-const green = document.querySelector('.green');
-const yellow = document.querySelector('.yellow');
+const colors = [...document.querySelectorAll('.genius div')].reverse();
 const genius = document.querySelector('.genius');
 
 const startGame = document.querySelector('#startGame');
-const myScore = document.querySelector('.score');
-const myScore2 = document.querySelector('.score2');
+const myScore = document.querySelector('.score > span');
+const myScore2 = document.querySelector('.score2 > span');
+const myRecord = document.querySelector('.recorde > span');
+const myPoints = document.querySelector('.points');
 
 const windowGameOver = document.querySelector('.game-over');
 const btnRestart = document.querySelector('#restart');
@@ -18,11 +13,33 @@ const btnRestart = document.querySelector('#restart');
 const windowNextLevel = document.querySelector('.next-level');
 const btnImReady = document.querySelector('#imReady');
 
-const lightDark = document.querySelector('.light-dark');
+const lightDark = document.querySelector('.dark_mode');
+
+let order = [];
+let clickedOrder = [];
+let score = 0;
+let record = 0;
+let cookie = '';
+let cookieValue = getCookieValue("cookieRecord") || 0;
+let startGenius = false;
+
+const date = new Date();
+date.setTime(date.getTime() + (1*24*60*60*1000));
+var expires = `expires= ${date.toUTCString()}`;
+
+// Valor de um cookie
+function getCookieValue(cookieName) {
+	const cookieMatch = document.cookie.match(new RegExp(`(^| )${cookieName}=([^;]+)`));
+	return cookieMatch ? parseInt(cookieMatch[2]) : null;
+}
+
+window.addEventListener('load', () => {
+	myRecord.innerHTML = cookieValue;
+});
 
 lightDark.onclick = () => {
-	document.body.classList.toggle('dark-theme');
-	document.body.classList.toggle('light-theme');
+	document.body.classList.toggle('dark_theme');
+	document.body.classList.toggle('light_theme');
 }
 
 //Cria ordem aleatória de Cores
@@ -59,14 +76,12 @@ let checkOrder = () => {
 		}
 	}
 	if(clickedOrder.length == order.length) {
-		myScore.innerHTML = `Minha Pontuação: ${score}`;
-
 		nextLevel();
 	}
 }
 
 //funcao para o clique do usuário
-let click = (color) => {
+let handleClick = (color) => {
 	clickedOrder[clickedOrder.length] = color;
 	createColorElement(color).classList.add('selected');
 
@@ -78,23 +93,14 @@ let click = (color) => {
 
 //funcao que retorna a cor
 let createColorElement = (color) => {
-	if(color == 0) {
-		return green;
-	} else if(color == 1) {
-		return red;
-	} else if(color == 2) {
-		return yellow;
-	} else if(color == 3) {
-		return blue;
-	}
+	return colors[color];
 }
 
 //funcao para proximo level do jogo
 let nextLevel = () => {
-	score++;
-
-	if(score == 1) {
+	if(!startGenius) {
 		shuffleOrder();
+		startGenius = true;
 	} else {
 		btnImReady.disabled = false;
 		windowNextLevel.classList.remove('disabled');
@@ -103,7 +109,7 @@ let nextLevel = () => {
 
 //funcao para game over
 let gameOver = () => {
-	myScore2.innerHTML = `Sua Pontuação foi : ${score}`;
+	myScore2.innerHTML = score;
 
 	btnRestart.disabled = false;
 	windowGameOver.classList.remove('disabled');
@@ -115,40 +121,48 @@ let gameOver = () => {
 //funcao inicia jogo
 let playGame = () => {
 	score = 0;
-	myScore.innerHTML = `Minha Pontuação: ${score}`;
+	startGenius = false;
+	myScore.innerHTML = score;
 	genius.classList.remove('disabled');
-	myScore.classList.remove('disabled');
+	myPoints.classList.remove('disabled');
 	nextLevel();
 }
 
 //eventos de clique para as cores
-green.onclick = () => click(0);
-red.onclick = () => click(1);
-yellow.onclick = () => click(2);
-blue.onclick = () => click(3);
+colors.forEach((color, index) => color.addEventListener('click', () => handleClick(index)));
 
 //inicia o jogo
-startGame.onclick = () => {
+startGame.addEventListener('click', () => {
 	setTimeout(() => {
 		playGame();
 		startGame.disabled = true;
 	},500);
-}
+});
 
-
-btnRestart.onclick = () => {
+btnRestart.addEventListener('click', () => {
 	setTimeout(() => {
 		windowGameOver.classList.add('disabled');
 		windowNextLevel.classList.add('disabled');
 		btnRestart.disabled = true;
 		playGame();
-	}, 500)
+	}, 500);
+});
+
+btnImReady.addEventListener('click', () => {
+	score++;
+	record = Math.max(score, record);
+
+	if (record > cookieValue) {
+		cookieValue = record;
+		document.cookie = `cookieRecord=${cookieValue}; ${expires}; path=/;`;
 }
 
-btnImReady.onclick = () => {
 	setTimeout(() => {
 		windowNextLevel.classList.add('disabled');
 		btnImReady.disabled = true;
 		shuffleOrder();
-	}, 500)
-}
+	}, 500);
+	
+	myScore.innerHTML = score;
+	myRecord.innerHTML = cookieValue;
+});

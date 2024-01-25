@@ -8,18 +8,21 @@
 	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
 	<title>Genius - Jogo</title>
 </head>
-<body class="light-theme">
+<body class="light_theme">
 
-	<div class="main-game">
+	<header>
+		<h1 class="title">Genius</h1>
+		<img src="img/dia-e-noite.png" class="dark_mode" alt="Icon Dark Mode">
+	</header>
 
-		<div class="header">
-			<h1 class="title">Genius</h1>
-			<img src="img/dia-e-noite.png" class="light-dark" alt="Icon light/dark">
+	<main>
+		<div class="points disabled">
+			<h3 class="score">Minha Pontuação: <span>0</span></h3>
+			<h5 class="recorde">Recorde: <span>0</span></h5>
 		</div>
+		<button type="button" class="btn btn_start" id="startGame">Iniciar Jogo</button>
 
-		<button type="button" class="btn" id="startGame">Iniciar Jogo</button>
-
-		<h3 class="score disabled">Minha Pontuação: 0</h3>
+		<!-- INTERFACE DO GENIUS -->
 
 		<div class="genius disabled">
 			<div class="blue"></div>
@@ -28,27 +31,42 @@
 			<div class="green"></div>
 		</div>
 
-		<div class="next-level disabled">
-			<h2>Parabéns! Você acertou!</h2>
+		<!-- POPOVER DE VITÓRIA -->
 
-			<h2>Clique em <br> Estou Preparado<br><br> Se estiver pronto para o próximo nível!</h2>
+		<div class="popover next-level disabled">
+			<h2>Parabéns! Você <span class="win">Acertou</span></h2>
 
-			<button type="button" class="btn" id="imReady" disabled>Estou Preparado</button>
+			<h2>
+				Clique em <br> Estou Preparado<br><br> 
+				Se estiver pronto para o próximo nível!
+			</h2>
+
+			<div class="popover_btns">
+				<button type="button" class="btn btn_green" id="imReady" disabled>CONTINUAR</button>
+			</div>
 		</div>
 
-		<div class="game-over disabled">
-			<h2>Você Perdeu o Jogo! <br><br> Clique em RESTART para iniciar um novo jogo</h2>
+		<!-- POPOVER DE GAME OVER -->
 
-			<h2 class="score2">Sua Pontuação foi : ?</h2>
+		<div class="popover game-over disabled">
+			<h2>
+					Você <span class="defeat">Perdeu</span> o Jogo! <br><br> 
+					Clique em RESTART para iniciar um novo jogo
+			</h2>
 
-			<button type="button" class="btn" id="restart" disabled>RESTART</button>
+			<h2 class="score2">Pontuação : <span>0</span></h2>
+
+			<div class="popover_btns">
+				<button type="button" class="btn btn_blue" id="restart" disabled>RESTART</button>
+				<a href="index.html" class="btn btn_red">Voltar</a>
+			</div>
 		</div>
 
 		<footer>
-			feito por <a href="https://github.com/Vitor-HenriqueAS" target="_blank">
-			<strong>&copy; Vitor-HenriqueAS 2022</strong></a>
+			Desenvolvido por <a href="https://portifolio-vitor-henriqueas.vercel.app/" target="_blank">
+			<strong>Vitor Henrique</strong></a> &copy; 2024
 		</footer>
-	</div>
+	</main>
 
 	<script src="script.js"></script>
 </body>
